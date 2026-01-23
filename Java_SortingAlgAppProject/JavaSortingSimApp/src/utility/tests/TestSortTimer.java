@@ -7,6 +7,7 @@ import sortingalgorithms.classes.MergeSort;
 import utility.classes.LetterGenerator;
 import utility.classes.SortingTimer;
 
+// Times the total sort time of classes that implement the SortAlgorithm interface.
 public class TestSortTimer {
 
     public static void main(String[] args) {

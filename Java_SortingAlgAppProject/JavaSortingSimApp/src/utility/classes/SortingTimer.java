@@ -33,10 +33,13 @@ public class SortingTimer<E extends Comparable<E>> {
     // returns elapsed nanosecounds of algorithm.
     public long testTrail(ArrayList<E> list)
     {
+        // start timer.
         long startTime = System.nanoTime();
 
+        // sort list.
         algorithm.sortList(list);
 
+        // stop timer after sorting finished.
         long endTime = System.nanoTime();
 
         return (endTime - startTime);
@@ -45,23 +48,24 @@ public class SortingTimer<E extends Comparable<E>> {
     // provide arraylist and number of test trails, prints out time results.
     public long trailRound(int numTrails, ArrayList<E> list)
     {
-        long averageTime = 0;
+        long totalNanoSec = 0;
+        // each iteration serves as one test trail.
         for (int i = 0; i < numTrails; i++) {
             ArrayList<E> unsortedList = new ArrayList<>();
             unsortedList.addAll(list);
             //System.out.println(unsortedList);
 
-            // time complextity
+            // times the time it takes to sort the list in nano secounds.
             long tc = testTrail(unsortedList);
             //System.out.println(unsortedList);
 
-            averageTime =+ tc;
-
-            System.out.println( "TRAIL " + (i + 1) + " - " + tc);
+            totalNanoSec =+ tc;
+            // print trail run in nano secounds and normal secounds.
+            System.out.println( "TRAIL " + (i + 1) + " - \t" + (tc) + " ns" + " |\t" + (tc/(1E+9)) + " secs");
         }
-
-        averageTime =  averageTime/numTrails;
-        System.out.println("AVE TIME: " + averageTime);
+        // average time in nano secounds.
+        long averageTime =  totalNanoSec/numTrails;
+        System.out.println("AVG. TIME: " + averageTime + " ns");
         return averageTime;
     }
 
