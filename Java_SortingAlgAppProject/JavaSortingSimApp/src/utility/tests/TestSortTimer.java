@@ -14,7 +14,7 @@ public class TestSortTimer {
         
 
         LetterGenerator gen1 = new LetterGenerator(17658);
-        BubbleSort bubSort = new BubbleSort();
+        BubbleSort<Character> bubSort = new BubbleSort<>();
         // create char list.
         ArrayList<Character> list1 = gen1.generateLetterList(20);
         System.out.println("Unsorted list :" + list1);
