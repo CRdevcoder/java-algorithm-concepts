@@ -2,7 +2,7 @@ package sortingalgorithms.classes;
 
 import java.util.ArrayList;
 
-public class MergeSort implements Sorter {
+public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
 
     boolean printMode; // set to true if you want methods to print to console.
 
@@ -29,14 +29,14 @@ public class MergeSort implements Sorter {
     }
 
     // sortList method. calls recursive sort.
-    public <T extends Comparable<T>> ArrayList<T> sortList( ArrayList<T> listArg)
+    public ArrayList<T> sortList( ArrayList<T> listArg)
     {
         // Enter first and last index of list.
         recursiveMergeSort(listArg, 0, listArg.size() - 1);
         return listArg;
     }
 
-    private <T extends Comparable<T>> void recursiveMergeSort( ArrayList<T> a, int first, int last)
+    private void recursiveMergeSort( ArrayList<T> a, int first, int last)
     {
         if (printMode) {
             // subarray length
@@ -58,6 +58,9 @@ public class MergeSort implements Sorter {
             // Phase 2 - Post Base Case - begin sorting subarrays by merging them together
             // Ran when recursive calls are returning
             merge(a,first,mid,last);
+
+            // pause here for visualization.
+            // or... send signal to pause the program for visualization.
         }
         else // when one element array
         {
@@ -67,7 +70,7 @@ public class MergeSort implements Sorter {
 
     // Uses midpoint parameter to divide the (a) list into 2 sub arrays.
     // Merges two adjacent sub arrays that are within the index range (first and last).
-    private <T extends Comparable<T>> void merge(ArrayList<T> a, int first, int mid, int last)
+    private void merge(ArrayList<T> a, int first, int mid, int last)
     {
         if (printMode) {
             //subarray length

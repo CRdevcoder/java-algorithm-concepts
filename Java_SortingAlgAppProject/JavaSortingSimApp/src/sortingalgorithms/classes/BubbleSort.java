@@ -6,7 +6,7 @@ import java.lang.Character;
 
 // implements Bubble Sort
 
-public class BubbleSort implements Sorter {
+public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
 
     // using Generics.
 
@@ -14,7 +14,7 @@ public class BubbleSort implements Sorter {
     // Returns ArrayList of type arguement T.
     // Elements must implement Comparable Interface for their own class.
     @Override
-    public <T extends Comparable<T>> ArrayList<T> sortList(ArrayList<T> listArg) {
+    public ArrayList<T> sortList(ArrayList<T> listArg) {
 
         // Make deep copy of arrayList?
         /*

@@ -17,13 +17,13 @@ public class TestMergeSort {
         ArrayList<Character> list = gl.generateLetterList(20);
         
         // Creating MergeSort object, setting print mode to true.
-        MergeSort ms = new MergeSort(true);
+        MergeSort<Character> ms = new MergeSort<Character>(true);
 
         // Sorting random List of Chars
         System.out.println("\n(SORTING CHAR ARRAY)");
         System.out.println("Unsorted Char Array: " + list + "\n");
 
-        ms.<Character>sortList(list);
+        ms.sortList(list);
 
         System.out.println("Sorted Char Array: " + list);
 
@@ -32,7 +32,8 @@ public class TestMergeSort {
         System.out.println("\n(SORTING NUMBER ARRAY)");
         System.out.println("Unsorted Num Array: " + numList + "\n");
 
-        ms.<Integer>sortList(numList);
+        MergeSort<Integer> msNum = new MergeSort<Integer>(true);
+        msNum.sortList(numList);
 
         System.out.println("Sorted Num Array: " + numList);
 
