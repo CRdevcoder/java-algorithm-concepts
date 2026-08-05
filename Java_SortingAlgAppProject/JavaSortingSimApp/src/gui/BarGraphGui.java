@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import utility.classes.Observer;
+
 // gui that draws a bar graph of the array that is being sorted.
 
 public class BarGraphGui extends JPanel {
@@ -14,12 +16,17 @@ public class BarGraphGui extends JPanel {
     // array we are drawing.
     private ArrayList<Integer> focusArray;
 
-
+    private Color barColor;
 
     // Constructor
     public BarGraphGui(ArrayList<Integer> focusArray) {
         this.focusArray = focusArray;
+        this.barColor = Color.BLUE; // default color
         
+    }
+
+    public void setBarColor(Color color) {
+        this.barColor = color;
     }
 
     // call repaint() to update the bar graph when the array changes.
@@ -42,8 +49,9 @@ public class BarGraphGui extends JPanel {
 
 
 	    for (int i = 0; i < focusArray.size(); i++)
-		{
-            g2.setColor(Color.BLUE);
+		{   
+            // set color for the bars.
+            g2.setColor(this.barColor);
 
             int barHeight = focusArray.get(i) * deltaY;
 
