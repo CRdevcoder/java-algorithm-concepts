@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import utility.classes.Observer;
-
 // gui that draws a bar graph of the array that is being sorted.
 
 public class BarGraphGui extends JPanel {
