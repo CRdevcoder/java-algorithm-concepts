@@ -2,10 +2,15 @@ package sortingalgorithms.classes;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import utility.classes.Observer;
+import utility.classes.Subject;
+
 import java.lang.Character;
 
 // implements Bubble Sort
 
+// subject.
 public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
 
     // using Generics.
@@ -13,7 +18,14 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
     // Sorts a given arraylist and returns it.
     // Returns ArrayList of type arguement T.
     // Elements must implement Comparable Interface for their own class.
-    @Override
+
+    // stores observers (sorters) of this subject.
+    private ArrayList<Observer<SortingEvent>> sorterObservers;
+    // constructor.
+    public BubbleSort() {
+        this.sorterObservers = new ArrayList<>();
+    }
+    
     public ArrayList<T> sortList(ArrayList<T> listArg) {
 
         // Make deep copy of arrayList?
@@ -68,8 +80,40 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
         // swapping elements
         list.set(index,list.get(index + 1));
         list.set(index + 1, temp);
+
+        System.out.println("Notify Observers");
+        notifyObservers();
     }
 
 
+    // Subject interface methods for Observer pattern.
+    //Add.
+    @Override
+    public void addObserver(Observer<SortingEvent> observer) {
+        // cast ? to Sorter<SortingEvent> and add to list of observers.
+        this.sorterObservers.add( observer);
+    }
+
+    // remove.
+    @Override
+    public void removeObserver(Observer<SortingEvent> observer) {
+        this.sorterObservers.remove( observer);
+    }
+
+    // notify the observer.
+    @Override
+    public void notifyObservers() {
+
+        if (this.sorterObservers.isEmpty()) {
+            return;
+        }
+
+        // graphics will be updated.
+        for (Observer<SortingEvent> observer : this.sorterObservers) {
+            observer.onNotify(this, SortingEvent.REDRAW_ARRAY_PLAIN);
+        }
+
+        
+    }
 
 }
