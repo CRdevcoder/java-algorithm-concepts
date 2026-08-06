@@ -2,14 +2,22 @@ package sortingalgorithms.classes;
 
 import java.util.ArrayList;
 
+import utility.classes.Observer;
+import utility.classes.Subject;
+
+// subject class.
 public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
 
     boolean printMode; // set to true if you want methods to print to console.
+
+    // Arraylist.
+    private ArrayList<Observer<SortingEvent>> observerList;
 
     // default constructor
     public MergeSort()
     {
         this.printMode = false;
+        this.observerList = new ArrayList<>();
     }
 
     public MergeSort(boolean printMode )
@@ -58,6 +66,9 @@ public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
             // Phase 2 - Post Base Case - begin sorting subarrays by merging them together
             // Ran when recursive calls are returning
             merge(a,first,mid,last);
+            
+            // notify observers that the array has changed.
+            notifyObservers(); 
 
             // pause here for visualization.
             // or... send signal to pause the program for visualization.
@@ -132,6 +143,23 @@ public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
         }
 
         return;// FINISHED
+    }
+
+    @Override
+    public void addObserver(Observer<SortingEvent> observer) {
+        observerList.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer<SortingEvent> observer) {
+        observerList.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer<SortingEvent> observer : observerList) {
+            observer.onNotify(this, SortingEvent.REDRAW_ARRAY_PLAIN);
+        }
     }
 
 }
