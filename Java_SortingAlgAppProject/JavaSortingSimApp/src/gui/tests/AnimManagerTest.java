@@ -2,6 +2,8 @@ package gui.tests;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -46,10 +48,15 @@ public class AnimManagerTest {
         mainContainer.add(animManager1.getBarGraphGui());
         mainContainer.add(animManager2.getBarGraphGui());
 
-        // begin sorter.
-        bub1.sortList(focusArray1);
-        bub2.sortList(focusArray2);
+        // execute the sorting algorithms in seperate threads to run both animations asynchronously.
+        ExecutorService executor = Executors.newFixedThreadPool(2);
 
+        // begin sorter.
+        // Try executing these in seperate threads,so the thread delays dont block each other.
+        executor.execute(() -> bub1.sortList(focusArray1));
+        executor.execute(() -> bub2.sortList(focusArray2));
+
+        executor.shutdown();
     }
     
 }
