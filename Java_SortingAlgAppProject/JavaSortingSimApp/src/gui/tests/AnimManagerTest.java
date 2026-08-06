@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import gui.AnimationManager;
 import gui.AppWindow;
 import sortingalgorithms.classes.BubbleSort;
+import sortingalgorithms.classes.MergeSort;
 import utility.classes.NumArrayGenerator;
 
 import java.awt.Color;
@@ -28,12 +29,12 @@ public class AnimManagerTest {
 
         // sorters
         BubbleSort<Integer> bub1 = new BubbleSort<>();
-        BubbleSort<Integer> bub2 = new BubbleSort<>();
+        MergeSort<Integer> bub2 = new MergeSort<>();
 
         // create animation manager.
         AnimationManager animManager1 = new AnimationManager(focusArray1, bub1,500);
         // 2nd one.
-        AnimationManager animManager2 = new AnimationManager(focusArray2, bub2,100);
+        AnimationManager animManager2 = new AnimationManager(focusArray2, bub2,500);
         // set bar color to green.
         animManager2.setGraphColor(Color.GREEN);
 
