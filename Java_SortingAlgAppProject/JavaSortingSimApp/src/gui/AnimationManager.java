@@ -15,6 +15,9 @@ import java.awt.Color;
 // it's subject is the sorting algorithm class.
 // it will be notified when the sorting algorithm class changes the array.
 // The sorting algorithm will call one of its methods to notify the observer that the array has changed.
+// it is resposible for:
+// 1 Commanding the bar graph gui to update its display.
+// 2 Pausing the thread for a period of time to create the animation effect.
 public class AnimationManager implements Observer<Sorter.SortingEvent> {
     
 
@@ -49,6 +52,11 @@ public class AnimationManager implements Observer<Sorter.SortingEvent> {
         this.pauseDuration = pauseDuration; // in milliseconds.
     }
 
+    public void setFocusArray(ArrayList<Integer> focusArray) {
+        this.focusArray = focusArray;
+        this.barGraph.setFocusArray(focusArray);
+    }
+
     public void setGraphColor(Color color) {
         this.barGraph.setBarColor(color);
     }
@@ -67,6 +75,9 @@ public class AnimationManager implements Observer<Sorter.SortingEvent> {
     //public void updateGraph( int coloredIndex) {
     //}
 
+    // we want AnimationManager to be given the responsibility of both:
+    // 1 updating the graph
+    // 2 pausing for the animation.
     @Override
     public void onNotify( Subject<Sorter.SortingEvent> subject, SortingEvent eventType) {
         // TODO Auto-generated method stub
