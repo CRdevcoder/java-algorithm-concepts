@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
-import gui.AnimationManager;
+import gui.AnimationUnit;
 import gui.AppWindow;
 import gui.GraphListDisplay;
 import sortingalgorithms.classes.BubbleSort;
@@ -17,7 +17,7 @@ import utility.classes.NumArrayGenerator;
 
 import java.awt.Color;
 
-public class AnimManagerTest {
+public class AnimUnitTest {
 
     public static void main(String[] args) {
         System.out.println("TESTING ANIMATION MANAGER:");
@@ -36,9 +36,9 @@ public class AnimManagerTest {
         GraphListDisplay graphListDisplay = new GraphListDisplay();
 
         // create animation manager.
-        AnimationManager animManager1 = new AnimationManager(focusArray1, bub1,500);
+        AnimationUnit animManager1 = new AnimationUnit(focusArray1, bub1,500);
         // 2nd one.
-        AnimationManager animManager2 = new AnimationManager(focusArray2, merge1,500);
+        AnimationUnit animManager2 = new AnimationUnit(focusArray2, merge1,500);
         // set bar color to green.
         animManager2.setGraphColor(Color.GREEN);
 

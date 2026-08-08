@@ -7,9 +7,12 @@ import java.util.ArrayList;
 
 
 import sortingalgorithms.classes.Sorter;
+import sortingalgorithms.classes.SorterFactory;
 import sortingalgorithms.classes.Sorter.SortingEvent;
 
 import java.awt.Color;
+
+import sortingalgorithms.classes.SorterFactory.Algorithm;;
 
 // an observer class.
 // it's subject is the sorting algorithm class.
@@ -18,7 +21,7 @@ import java.awt.Color;
 // it is resposible for:
 // 1 Commanding the bar graph gui to update its display.
 // 2 Pausing the thread for a period of time to create the animation effect.
-public class AnimationManager implements Observer<Sorter.SortingEvent> {
+public class AnimationUnit implements Observer<Sorter.SortingEvent> {
     
 
     // gui:
@@ -33,11 +36,22 @@ public class AnimationManager implements Observer<Sorter.SortingEvent> {
     private int pauseDuration; // in milliseconds. 1000 milliseconds = 1 second.
 
     // constructor.
-    public AnimationManager(ArrayList<Integer> focusArray, Sorter<Integer> sortingAlgorithm) {
+    public AnimationUnit(ArrayList<Integer> focusArray, Sorter<Integer> sortingAlgorithm) {
         this(focusArray, sortingAlgorithm, 1000); // default pause duration is 1 second.
     }
 
-    public AnimationManager(ArrayList<Integer> focusArray, Sorter<Integer> sortingAlgorithm, int pauseDuration) {
+    // Pass an Algorithm enum into constructor to have the manager create a sorter within itself.
+    // constructs a sorter using a factory.
+    public AnimationUnit(ArrayList<Integer> focusArray, Algorithm algorithmType, int duration )
+    {   
+        SorterFactory<Integer> fac = new SorterFactory<Integer>();
+        Sorter<Integer> alg = fac.createSorter(algorithmType);
+
+        // pass to other constructor.
+        this(focusArray, alg, duration);
+    }
+
+    public AnimationUnit(ArrayList<Integer> focusArray, Sorter<Integer> sortingAlgorithm, int pauseDuration) {
         // create focus array.
         this.focusArray = focusArray;
         // create the bar graph gui and pass the focus array to it.
@@ -75,12 +89,13 @@ public class AnimationManager implements Observer<Sorter.SortingEvent> {
     //public void updateGraph( int coloredIndex) {
     //}
 
-    // we want AnimationManager to be given the responsibility of both:
+    // we want AnimationUnit to be given the responsibility of both:
     // 1 updating the graph
     // 2 pausing for the animation.
     @Override
     public void onNotify( Subject<Sorter.SortingEvent> subject, SortingEvent eventType) {
-        // TODO Auto-generated method stub
+
+        // update the graph.
         updateGraph();
         // pause thread for period of time.
         try {

@@ -27,7 +27,7 @@ public class GraphListDisplay extends JPanel {
         this.repaint(); // repaint the JPanel to update the display.
     }
 
-    public void addGraph( AnimationManager animManager) {
+    public void addGraph( AnimationUnit animManager) {
         BarGraphGui graph = animManager.getBarGraphGui();
         this.addGraph(graph);
     }
@@ -40,7 +40,7 @@ public class GraphListDisplay extends JPanel {
         this.repaint(); // repaint the JPanel to update the display.
     }
 
-    public void removeGraph(AnimationManager animManager){
+    public void removeGraph(AnimationUnit animManager){
         BarGraphGui graph = animManager.getBarGraphGui();
         this.removeGraph(graph);
     }
