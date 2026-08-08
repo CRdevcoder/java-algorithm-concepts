@@ -23,6 +23,10 @@ public class BarGraphGui extends JPanel {
         
     }
 
+    public void setFocusArray(ArrayList<Integer> focusArray) {
+        this.focusArray = focusArray;
+    }
+
     public void setBarColor(Color color) {
         this.barColor = color;
     }
