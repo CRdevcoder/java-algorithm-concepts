@@ -41,6 +41,22 @@ public class BarGraphGui extends JPanel {
         drawState(g2d);
     }
 
+    private void drawIndexBar(int i , int deltaX, int deltaY, Color color, Graphics2D g2)
+    {
+
+        // set color for the bars.
+            g2.setColor(color);
+
+            int barHeight = focusArray.get(i) * deltaY;
+
+            int yPos = (this.getHeight() - barHeight) - 10;
+            int xPos = (int)(i * (deltaX) + 10);
+
+			// Draw bar that represents the i-th element in focusArray.
+			g2.fillRect(xPos, yPos, ((deltaX + 10)/2), barHeight);
+
+    }
+
     // update and draw bar graph.
     public void drawState(Graphics2D g2) 
 	{
@@ -52,16 +68,8 @@ public class BarGraphGui extends JPanel {
 
 	    for (int i = 0; i < focusArray.size(); i++)
 		{   
-            // set color for the bars.
-            g2.setColor(this.barColor);
-
-            int barHeight = focusArray.get(i) * deltaY;
-
-            int yPos = (this.getHeight() - barHeight) - 10;
-            int xPos = (int)(i * (deltaX) + 10);
-
-			// Draw bar that represents the i-th element in focusArray.
-			g2.fillRect(xPos, yPos, ((deltaX + 10)/2), barHeight);
+            // draw bar.
+            drawIndexBar(i, deltaX, deltaY, this.barColor, g2);
 	    }
     }
 
