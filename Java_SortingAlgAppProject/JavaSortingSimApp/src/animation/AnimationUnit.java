@@ -1,11 +1,11 @@
-package gui;
+package animation;
 
 import utility.classes.Observer;
 import utility.classes.Subject;
 
 import java.util.ArrayList;
 
-
+import gui.BarGraphGui;
 import sortingalgorithms.classes.Sorter;
 import sortingalgorithms.classes.SorterFactory;
 import sortingalgorithms.classes.Sorter.SortingEvent;
@@ -26,8 +26,12 @@ public class AnimationUnit implements Observer<Sorter.SortingEvent> {
 
     // gui:
     private BarGraphGui barGraph; // the gui that draws the bar graph of the array that is being sorted.
-    // array that will be sorted.
+
+    // copy of original array, it will not be sorted.
+    // used to implement reset function.
     private ArrayList<Integer> focusArray;
+    // copy of focus array. it will be sorted.
+    private ArrayList<Integer> copyArray;
 
     // sorting algorithm subject:
     private Sorter<Integer> sortingAlgorithm; // the sorting algorithm that is being used to sort the array.
@@ -52,10 +56,13 @@ public class AnimationUnit implements Observer<Sorter.SortingEvent> {
     }
 
     public AnimationUnit(ArrayList<Integer> focusArray, Sorter<Integer> sortingAlgorithm, int pauseDuration) {
-        // create focus array.
-        this.focusArray = focusArray;
-        // create the bar graph gui and pass the focus array to it.
-        this.barGraph = new BarGraphGui(focusArray);
+
+        // create shallow copy of focus array.
+        this.focusArray = new ArrayList<Integer>(focusArray);
+        // create another shallow copy, this will be sorted.
+        this.copyArray = new ArrayList<Integer>(this.focusArray);
+        // create the bar graph gui and pass the copy array to it.
+        this.barGraph = new BarGraphGui(this.copyArray);
         // set the sorting algorithm.
         this.sortingAlgorithm = sortingAlgorithm;
 
@@ -66,9 +73,28 @@ public class AnimationUnit implements Observer<Sorter.SortingEvent> {
         this.pauseDuration = pauseDuration; // in milliseconds.
     }
 
+    // commands the sorter to begin sorting the copyArray.
+    public void beginSort(){
+        this.sortingAlgorithm.sortList(copyArray);
+    }
+
+    // resets the copy array, by creating a new shallow copy of the current focus array.
+    // intended to allow an animation to be reset from the beginning to be sorted again.
+    public void reset(){
+        this.copyArray = new ArrayList<Integer>(this.focusArray);
+        // must update bar graph gui with new copyArray.
+        this.barGraph.setFocusArray(this.copyArray);
+        // redraw graph.
+        updateGraph();
+    }
+
+
+    // setters
     public void setFocusArray(ArrayList<Integer> focusArray) {
-        this.focusArray = focusArray;
-        this.barGraph.setFocusArray(focusArray);
+        this.focusArray = new ArrayList<Integer>(focusArray);
+        // set new copy array.
+        this.copyArray = new ArrayList<Integer>(this.focusArray);
+        this.barGraph.setFocusArray(this.focusArray);
     }
 
     public void setGraphColor(Color color) {
