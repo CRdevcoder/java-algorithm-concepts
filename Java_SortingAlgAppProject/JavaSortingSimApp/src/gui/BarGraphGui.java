@@ -73,5 +73,13 @@ public class BarGraphGui extends JPanel {
 	    }
     }
 
+    // prints focus array for bar graph.
+    @Override
+    public String toString(){
+
+        return "Graph GUI, FocusArray: " + focusArray;
+
+    }
+
     
 }
