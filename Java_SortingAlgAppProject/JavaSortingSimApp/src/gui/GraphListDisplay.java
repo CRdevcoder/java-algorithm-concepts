@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+
+import animation.AnimationUnit;
 // a gui that displays a list of graphs.
 // can add or remove graphs from the list.
 public class GraphListDisplay extends JPanel {
