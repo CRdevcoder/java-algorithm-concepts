@@ -6,6 +6,8 @@ import utility.classes.Subject;
 import java.util.ArrayList;
 
 import gui.BarGraphGui;
+import observerpattern.Observer;
+import observerpattern.Subject;
 import sortingalgorithms.classes.Sorter;
 import sortingalgorithms.classes.SorterFactory;
 import sortingalgorithms.classes.Sorter.SortingEvent;
