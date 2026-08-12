@@ -1,6 +1,6 @@
-package utility.classes;
+package observerpattern;
 
-import utility.classes.Observer;
+import observerpattern.Observer;
 
 // E is the enum type of the event that the subject is notifying this observer of.
 public interface Subject<E extends Enum<E>> {
