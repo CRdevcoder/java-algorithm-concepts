@@ -3,8 +3,8 @@ package sortingalgorithms.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import utility.classes.Observer;
-import utility.classes.Subject;
+import observerpattern.Observer;
+import observerpattern.Subject;
 
 import java.lang.Character;
 

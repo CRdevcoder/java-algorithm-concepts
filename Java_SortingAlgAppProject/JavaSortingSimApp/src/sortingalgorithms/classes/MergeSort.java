@@ -2,8 +2,8 @@ package sortingalgorithms.classes;
 
 import java.util.ArrayList;
 
-import utility.classes.Observer;
-import utility.classes.Subject;
+import observerpattern.Observer;
+import observerpattern.Subject;
 
 // subject class.
 public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
