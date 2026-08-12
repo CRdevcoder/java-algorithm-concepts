@@ -1,5 +1,8 @@
 package sortingalgorithms.classes;
 import java.util.ArrayList;
+
+import observerpattern.Subject;
+
 import java.lang.Comparable;
 import utility.classes.Subject;
 
