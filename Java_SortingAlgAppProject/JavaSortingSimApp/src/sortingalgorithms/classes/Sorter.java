@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import observerpattern.Subject;
 
 import java.lang.Comparable;
-import utility.classes.Subject;
 
 // NOTE: Sorter Interface for algorithms.
 public interface Sorter <T extends Comparable<T>> extends Subject<Sorter.SortingEvent> {
