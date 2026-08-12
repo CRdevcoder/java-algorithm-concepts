@@ -25,10 +25,12 @@ public class GraphDrawingTest {
         try {
             Thread.sleep(2000); // Wait for 2 seconds before starting the sort
             bubbleSort.sortList(testList);
+            // it will be sorted immediately
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        // repaint after the pause.
         barGraph.repaint();
     }
 
