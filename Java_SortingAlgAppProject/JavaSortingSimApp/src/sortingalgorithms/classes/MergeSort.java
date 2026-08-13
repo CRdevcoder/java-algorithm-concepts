@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import observerpattern.Observer;
 import observerpattern.Subject;
+import observerpattern.SortingEvent.ActionType;
+import observerpattern.SortingEvent.DurationType;
+import observerpattern.SortingEvent;
 
 // subject class.
 public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
 
     boolean printMode; // set to true if you want methods to print to console.
 
-    // Arraylist.
+    // Arraylist of observers.
     private ArrayList<Observer<SortingEvent>> observerList;
 
     // default constructor
@@ -67,11 +70,8 @@ public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
             // Ran when recursive calls are returning
             merge(a,first,mid,last);
             
-            // notify observers that the array has changed.
-            notifyObservers(); 
-
-            // pause here for visualization.
-            // or... send signal to pause the program for visualization.
+            // notify observers that the array has changed. (merged)
+            notifyObservers(this, new SortingEvent(first,mid,last)); 
         }
         else // when one element array
         {
@@ -107,6 +107,9 @@ public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
         {
             T leftItem = a.get(leftSubStart);
             T rightItem = a.get(rightSubStart);
+
+            // send scanning notification
+            notifyObservers(this, new SortingEvent(DurationType.SMALL_STEP,ActionType.SCANNING,leftSubStart,rightSubStart));
 
             // returns negative if leftItem less than rightItem.
             if(leftItem.compareTo(rightItem) <= 0)
@@ -156,9 +159,9 @@ public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
     }
 
     @Override
-    public void notifyObservers() {
+    public void notifyObservers( Subject<SortingEvent> subject, SortingEvent event ) {
         for (Observer<SortingEvent> observer : observerList) {
-            observer.onNotify(this, SortingEvent.REDRAW_ARRAY_PLAIN);
+            observer.onNotify(subject, event);
         }
     }
 

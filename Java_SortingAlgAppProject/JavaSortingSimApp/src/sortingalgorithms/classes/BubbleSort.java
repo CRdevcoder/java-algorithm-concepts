@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import observerpattern.Observer;
+import observerpattern.SortingEvent;
 import observerpattern.Subject;
+import observerpattern.SortingEvent.ActionType;
+import observerpattern.SortingEvent.DurationType;
 
 import java.lang.Character;
 
@@ -28,14 +31,6 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
     
     public ArrayList<T> sortList(ArrayList<T> listArg) {
 
-        // Make deep copy of arrayList?
-        /*
-        ArrayList<Comparable> copyList = new ArrayList<>();
-        for (Comparable c : listArg) {
-            copyList.add(c);
-        }
-        */
-
         int length = listArg.size();
         boolean swapped = false; // false if passes through array without swapping.
 
@@ -45,7 +40,9 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
             swapped = false;
             // inner loop(j)
             for(int j=0; j < length - i - 1; j++)
-            {
+            {   
+                // notify comparison taking place.
+                notifyObservers(this, new SortingEvent(DurationType.FULL_STEP,ActionType.SCANNING,j,(j+1)));
                 // returns num greater than 0 if j bigger than j+1
                 if(listArg.get(j).compareTo( listArg.get(j+1)) > 0)
                 {
@@ -56,24 +53,15 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
             }
             if(!swapped)
             {
-                //System.out.println(i + " : No More Swaps, ENDING SORT");
                 break;
             }
         }
 
         return listArg;
     }
-    
-
-    // Single bubble sorting pass through given ArrayList.
-    /*private void pass(ArrayList<Comparable> list, int sortedIndex)
-    {
-
-    }
-    */
 
     // swaps one element with it's rightwards neighbor, given it's arrayList and index.
-    private <T extends Comparable<T>> void swap(int index,ArrayList<T> list)
+    private void swap(int index,ArrayList<T> list)
     {
         // store element in temp
         T temp = list.get(index);
@@ -82,7 +70,9 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
         list.set(index + 1, temp);
 
         System.out.println("Notify Observers");
-        notifyObservers();
+
+        // create selection event and send
+        notifyObservers(this, new SortingEvent(index,(index+1)));
     }
 
 
@@ -94,26 +84,26 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
         this.sorterObservers.add( observer);
     }
 
-    // remove.
+    // remove an observer.
     @Override
     public void removeObserver(Observer<SortingEvent> observer) {
         this.sorterObservers.remove( observer);
     }
 
-    // notify the observer.
     @Override
-    public void notifyObservers() {
+    public void notifyObservers(Subject<SortingEvent> subject, SortingEvent event) {
 
+        // ignore request if empty.
         if (this.sorterObservers.isEmpty()) {
             return;
         }
 
         // graphics will be updated.
         for (Observer<SortingEvent> observer : this.sorterObservers) {
-            observer.onNotify(this, SortingEvent.REDRAW_ARRAY_PLAIN);
+            observer.onNotify(subject, event);
         }
-
-        
     }
+
+   
 
 }
