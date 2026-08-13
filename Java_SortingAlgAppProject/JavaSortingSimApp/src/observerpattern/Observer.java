@@ -2,11 +2,11 @@ package observerpattern;
 
 import observerpattern.Subject;
 
-// Parameter E is the enum type of the event that the subject is notifying this observer of.
-public interface Observer <E extends Enum<E>> {
-
+// Note: before had <T extends Event<?>>, overcomplicated things!
+// T is parameter for the type of Event being used by both Observer and Subject.
+public interface Observer <T> {
     // subjects call this method to notify their observers. They send their reference too.
-    // And uses enums to categorize the type of event that is being notified to the observer.
-    public void onNotify( Subject<E> subject, E eventType);
-
+    // !!! But how do I tell it what value the event is storing?
+    // try passing it in on notify?
+    public void onNotify( Subject<T> subject, T eventType);
 }
