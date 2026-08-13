@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -109,9 +110,21 @@ public class BarGraphGui extends JPanel {
 
             int yPos = (this.getHeight() - barHeight) - 10;
             int xPos = (int)(i * (deltaX) + 10);
+            // calculate bar width
+            int barWidth = ((deltaX + 10)/2);
 
 			// Draw bar that represents the i-th element in focusArray.
-			g2.fillRect(xPos, yPos, ((deltaX + 10)/2), barHeight);
+			g2.fillRect(xPos, yPos, barWidth, barHeight);
+
+            int fontSize = (deltaX)/2;
+            if(fontSize<12){
+                fontSize = 12;
+            }
+
+            Font font = new Font("Serif", Font.PLAIN, fontSize);
+            g2.setFont(font);
+
+            g2.drawString(Integer.toString(focusArray.get(i)), xPos, yPos - 10);
 
     }
 
