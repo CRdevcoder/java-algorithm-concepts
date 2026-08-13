@@ -1,16 +1,16 @@
 package animation;
 
-import utility.classes.Observer;
-import utility.classes.Subject;
-
 import java.util.ArrayList;
-
 import gui.BarGraphGui;
+import gui.BarGraphGui.ColorType;
 import observerpattern.Observer;
 import observerpattern.Subject;
+import observerpattern.SortingEvent.ActionType;
+import observerpattern.SortingEvent.DurationType;
+import observerpattern.SortingEvent;
 import sortingalgorithms.classes.Sorter;
 import sortingalgorithms.classes.SorterFactory;
-import sortingalgorithms.classes.Sorter.SortingEvent;
+
 
 import java.awt.Color;
 
@@ -23,7 +23,7 @@ import sortingalgorithms.classes.SorterFactory.Algorithm;;
 // it is resposible for:
 // 1 Commanding the bar graph gui to update its display.
 // 2 Pausing the thread for a period of time to create the animation effect.
-public class AnimationUnit implements Observer<Sorter.SortingEvent> {
+public class AnimationUnit implements Observer<SortingEvent> {
     
 
     // gui:
@@ -65,6 +65,7 @@ public class AnimationUnit implements Observer<Sorter.SortingEvent> {
         this.copyArray = new ArrayList<Integer>(this.focusArray);
         // create the bar graph gui and pass the copy array to it.
         this.barGraph = new BarGraphGui(this.copyArray);
+        
         // set the sorting algorithm.
         this.sortingAlgorithm = sortingAlgorithm;
 
@@ -121,13 +122,30 @@ public class AnimationUnit implements Observer<Sorter.SortingEvent> {
     // 1 updating the graph
     // 2 pausing for the animation.
     @Override
-    public void onNotify( Subject<Sorter.SortingEvent> subject, SortingEvent eventType) {
+    public void onNotify( Subject<SortingEvent> subject, SortingEvent event) {
+
+
+        // retreive index data from sorter. Pass it to Graph GUI.
+        int[] selected = event.getData();
+        // pass index data to graph. Tell graph how it should color the data. Graph clears previous data.
+        if(event.getActionType() == ActionType.MOVING)
+            this.barGraph.setSelectedBars(selected, ColorType.MOVED);
+        else if(event.getActionType() == ActionType.SCANNING)
+            // color scanned data bars.
+            this.barGraph.setSelectedBars(selected, ColorType.SCANNED);
 
         // update the graph.
         updateGraph();
         // pause thread for period of time.
         try {
-            Thread.sleep(this.pauseDuration);
+            // duration is chaged based on enum from SortingEvent.
+            if(event.getDurationType() == DurationType.FULL_STEP)
+                Thread.sleep(this.pauseDuration);
+            else if(event.getDurationType() == DurationType.SMALL_STEP)
+                // pause for fraction of the time.
+                Thread.sleep(this.pauseDuration/2);
+            else // default if neither (probably not reachable)
+                Thread.sleep(this.pauseDuration);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
