@@ -124,6 +124,8 @@ public class AnimationUnit implements Observer<SortingEvent> {
     @Override
     public void onNotify( Subject<SortingEvent> subject, SortingEvent event) {
 
+        // clear data in BarGraph's hashTable.
+        barGraph.clearSelectionData();
 
         // retreive index data from sorter. Pass it to Graph GUI.
         int[] selected = event.getData();
