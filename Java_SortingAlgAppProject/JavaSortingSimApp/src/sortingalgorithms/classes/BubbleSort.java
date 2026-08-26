@@ -30,7 +30,7 @@ public class BubbleSort<T extends Comparable<T>>  extends SortAlgorithm<T> imple
     }
     
     @Override
-    public ArrayList<T> sortList(ArrayList<T> listArg) throws InterruptedException {
+    public ArrayList<T> sortList(ArrayList<T> listArg) {
 
         int length = listArg.size();
         boolean swapped = false; // false if passes through array without swapping.
@@ -55,10 +55,10 @@ public class BubbleSort<T extends Comparable<T>>  extends SortAlgorithm<T> imple
                 try {
                     notifyObservers(this, new SortingEvent(DurationType.FULL_STEP,ActionType.SCANNING,j,(j+1)));
                 } catch (Exception e) {
-                    // TODO: handle exception
-                    
+                    System.out.print(e.getMessage());
                     return listArg;
                 }
+                
                 
                 // returns num greater than 0 if j bigger than j+1
                 if(listArg.get(j).compareTo( listArg.get(j+1)) > 0)
@@ -66,6 +66,14 @@ public class BubbleSort<T extends Comparable<T>>  extends SortAlgorithm<T> imple
                     swap(j,listArg);
                     //System.out.println( i + " - " + j + ": " + listArg + " - Swapped (" + j + ") " + listArg.get(j+1) + " with (" + (j+1) + ") " + listArg.get(j) + "\n");
                     swapped = true;
+
+                    try {
+                        notifyObservers(this, new SortingEvent(j,(j+1)));
+                    } catch (Exception e) {
+                        System.out.print(e.getMessage());
+                        return listArg;
+                    }
+                    
                 }
             }
             if(!swapped)
@@ -78,16 +86,13 @@ public class BubbleSort<T extends Comparable<T>>  extends SortAlgorithm<T> imple
     }
 
     // swaps one element with it's rightwards neighbor, given it's arrayList and index.
-    private void swap(int index,ArrayList<T> list) throws InterruptedException
+    private void swap(int index,ArrayList<T> list)
     {
         // store element in temp
         T temp = list.get(index);
         // swapping elements
         list.set(index,list.get(index + 1));
         list.set(index + 1, temp);
-
-        // create selection event and send
-        notifyObservers(this, new SortingEvent(index,(index+1)));
         
     }
 
@@ -107,7 +112,7 @@ public class BubbleSort<T extends Comparable<T>>  extends SortAlgorithm<T> imple
     }
 
     @Override
-    public void notifyObservers(Subject<SortingEvent> subject, SortingEvent event) {
+    public void notifyObservers(Subject<SortingEvent> subject, SortingEvent event) throws InterruptedException{
 
         // ignore request if empty.
         if (this.sorterObservers.isEmpty()) {

@@ -15,5 +15,5 @@ public interface Subject<T> {
     public void removeObserver(Observer<T> observer);
 
     // iterate through each observer and call their onNotify method.
-    public void notifyObservers( Subject<T> subject, T event);
+    public void notifyObservers( Subject<T> subject, T event) throws InterruptedException;
 }

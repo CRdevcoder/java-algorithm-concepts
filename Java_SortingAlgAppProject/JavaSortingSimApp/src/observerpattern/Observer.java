@@ -8,5 +8,5 @@ public interface Observer <T> {
     // subjects call this method to notify their observers. They send their reference too.
     // !!! But how do I tell it what value the event is storing?
     // try passing it in on notify?
-    public void onNotify( Subject<T> subject, T eventType);
+    public void onNotify( Subject<T> subject, T eventType) throws InterruptedException;
 }

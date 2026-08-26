@@ -37,7 +37,7 @@ public abstract class SortAlgorithm<T extends Comparable<T>> implements Sorter<T
     }
 
     @Override
-    public void notifyObservers(Subject<SortingEvent> subject, SortingEvent event) {
+    public void notifyObservers(Subject<SortingEvent> subject, SortingEvent event) throws InterruptedException{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'notifyObservers'");
     }

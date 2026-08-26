@@ -174,7 +174,7 @@ public class AnimationUnit implements Observer<SortingEvent> {
     // 1 updating the graph
     // 2 pausing for the animation.
     @Override
-    public void onNotify( Subject<SortingEvent> subject, SortingEvent event) {
+    public void onNotify( Subject<SortingEvent> subject, SortingEvent event) throws InterruptedException {
 
         // clear data in BarGraph's hashTable.
         barGraph.clearSelectionData();
@@ -191,7 +191,7 @@ public class AnimationUnit implements Observer<SortingEvent> {
         // update the graph.
         updateGraph();
         // pause thread for period of time.
-        try {
+        // these can throw interuption threads!
             // duration is chaged based on enum from SortingEvent.
             if(event.getDurationType() == DurationType.FULL_STEP)
                 Thread.sleep(this.pauseDuration);
@@ -200,8 +200,6 @@ public class AnimationUnit implements Observer<SortingEvent> {
                 Thread.sleep(this.pauseDuration/2);
             else // default if neither (probably not reachable)
                 Thread.sleep(this.pauseDuration);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        
     }
 }
