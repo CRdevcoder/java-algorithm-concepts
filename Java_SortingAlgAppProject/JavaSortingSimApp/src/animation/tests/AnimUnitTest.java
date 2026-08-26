@@ -24,13 +24,17 @@ import java.awt.event.ActionListener;
 public class AnimUnitTest implements ActionListener{
 
     public JButton resetButton;
+    public JButton runButton;
     public AnimationUnit animManager1;
     public AnimationUnit animManager2;
 
     // constructor
     AnimUnitTest(){
-        resetButton = new JButton("Reset and Run Animation");
+        // create JButtons and set action listener.
+        resetButton = new JButton("Reset");
+        runButton = new JButton("Run");
         resetButton.addActionListener(this);
+        runButton.addActionListener(this);
 
         NumArrayGenerator ng = new NumArrayGenerator(237, 1,30);
 
@@ -43,7 +47,6 @@ public class AnimUnitTest implements ActionListener{
         this.animManager1 = new AnimationUnit(focusArray1, Algorithm.BUBBLE,500);
         // 2nd one.
         this.animManager2 = new AnimationUnit(focusArray2, Algorithm.MERGE,500);
-        animManager2.setGraphColor(Color.GREEN);
     }
 
     public static void main(String[] args) {
@@ -68,29 +71,27 @@ public class AnimUnitTest implements ActionListener{
         window.add(mainContainer);
         // add bar graph guis to main container panel.
         mainContainer.add(graphListDisplay);
-        // add button.
+        // add buttons.
         mainContainer.add(tester.resetButton);
+        mainContainer.add(tester.runButton);
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
         if(e.getSource() == resetButton){
+            System.out.println("RESET BUTTON PRESSED");
             animManager1.reset();
             animManager2.reset();
-
-        // execute the sorting algorithms in seperate threads to run both animations asynchronously.
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-
-        // begin sorter.
-        // Try executing these in seperate threads,so the thread delays dont block each other.
-        // must ask animation units to begin sorting their arrays.
-        // NOTE: what happens to the previously running threads if this button is pressed twice?
-        executor.execute(() -> animManager1.beginSort());
-        executor.execute(() -> animManager2.beginSort());
-
-        executor.shutdown();
-
+        }
+        else if(e.getSource() == runButton){// begin sorter.
+            System.out.println("RUN BUTTON PRESSED");
+            // Try executing these in seperate threads,so the thread delays dont block each other.
+            // must ask animation units to begin sorting their arrays.
+            // NOTE: what happens to the previously running threads if this button is pressed twice?
+            animManager1.beginSort();
+            animManager2.beginSort();
         }
         
     }

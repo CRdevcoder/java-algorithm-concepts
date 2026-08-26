@@ -11,7 +11,7 @@ public interface Sorter <T extends Comparable<T>> extends Subject<SortingEvent> 
 
     // Takes an ArrayList, copies it, sorts it, then returns the sorted list.
     // Accepts DataTypes that implement Comparable Interface.
-    public ArrayList<T> sortList(ArrayList<T> list);
+    public ArrayList<T> sortList(ArrayList<T> list) throws InterruptedException;
 
     //public enum SortingEvent {
     //    REDRAW_ARRAY_PLAIN, // redraw the array and keep all bars the same color.

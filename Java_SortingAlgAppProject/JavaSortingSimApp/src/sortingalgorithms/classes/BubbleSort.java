@@ -14,7 +14,7 @@ import java.lang.Character;
 // implements Bubble Sort
 
 // subject.
-public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
+public class BubbleSort<T extends Comparable<T>>  extends SortAlgorithm<T> implements Sorter<T> {
 
     // using Generics.
 
@@ -29,7 +29,8 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
         this.sorterObservers = new ArrayList<>();
     }
     
-    public ArrayList<T> sortList(ArrayList<T> listArg) {
+    @Override
+    public ArrayList<T> sortList(ArrayList<T> listArg) throws InterruptedException {
 
         int length = listArg.size();
         boolean swapped = false; // false if passes through array without swapping.
@@ -37,12 +38,28 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
         // i is current iteration, j is current index.
         // outter loop (i)
         for (int i = 0; i < length - 1; i++) {
+
             swapped = false;
             // inner loop(j)
             for(int j=0; j < length - i - 1; j++)
             {   
+                // checks if interrupted, throws interrupt exception if true
+                //try {
+                 //   checkForInterrupts();    
+                //} catch (Exception e) {
+                //    // TODO: handle exception
+                //    return listArg;
+                //}
+
                 // notify comparison taking place.
-                notifyObservers(this, new SortingEvent(DurationType.FULL_STEP,ActionType.SCANNING,j,(j+1)));
+                try {
+                    notifyObservers(this, new SortingEvent(DurationType.FULL_STEP,ActionType.SCANNING,j,(j+1)));
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    
+                    return listArg;
+                }
+                
                 // returns num greater than 0 if j bigger than j+1
                 if(listArg.get(j).compareTo( listArg.get(j+1)) > 0)
                 {
@@ -61,7 +78,7 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
     }
 
     // swaps one element with it's rightwards neighbor, given it's arrayList and index.
-    private void swap(int index,ArrayList<T> list)
+    private void swap(int index,ArrayList<T> list) throws InterruptedException
     {
         // store element in temp
         T temp = list.get(index);
@@ -69,10 +86,9 @@ public class BubbleSort<T extends Comparable<T>> implements Sorter<T> {
         list.set(index,list.get(index + 1));
         list.set(index + 1, temp);
 
-        System.out.println("Notify Observers");
-
         // create selection event and send
         notifyObservers(this, new SortingEvent(index,(index+1)));
+        
     }
 
 

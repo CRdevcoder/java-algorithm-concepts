@@ -9,7 +9,7 @@ import observerpattern.SortingEvent.DurationType;
 import observerpattern.SortingEvent;
 
 // subject class.
-public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
+public class MergeSort<T extends Comparable<T>> extends SortAlgorithm<T> implements Sorter<T> {
 
     boolean printMode; // set to true if you want methods to print to console.
 
@@ -40,15 +40,18 @@ public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
     }
 
     // sortList method. calls recursive sort.
-    public ArrayList<T> sortList( ArrayList<T> listArg)
+    public ArrayList<T> sortList( ArrayList<T> listArg) throws InterruptedException
     {
         // Enter first and last index of list.
         recursiveMergeSort(listArg, 0, listArg.size() - 1);
         return listArg;
     }
 
-    private void recursiveMergeSort( ArrayList<T> a, int first, int last)
+    private void recursiveMergeSort( ArrayList<T> a, int first, int last) throws InterruptedException
     {
+        // check for interrupt, throw if yes.
+        checkForInterrupts();
+
         if (printMode) {
             // subarray length
             int subLength = Math.abs(first - last);
@@ -81,7 +84,7 @@ public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
 
     // Uses midpoint parameter to divide the (a) list into 2 sub arrays.
     // Merges two adjacent sub arrays that are within the index range (first and last).
-    private void merge(ArrayList<T> a, int first, int mid, int last)
+    private void merge(ArrayList<T> a, int first, int mid, int last) throws InterruptedException
     {
         if (printMode) {
             //subarray length
@@ -104,7 +107,10 @@ public class MergeSort<T extends Comparable<T>> implements Sorter<T> {
         // While both sub Arrays haven't been looped through fully, compare elements from both.
         // after each while loop iteration, the smaller element between sub arrays will be added to temp array.
         while( (leftSubStart <= leftSubEnd) && (rightSubStart <= rightSubEnd))
-        {
+        {   
+            // throws interrupt exceptions.
+            checkForInterrupts();
+
             T leftItem = a.get(leftSubStart);
             T rightItem = a.get(rightSubStart);
 

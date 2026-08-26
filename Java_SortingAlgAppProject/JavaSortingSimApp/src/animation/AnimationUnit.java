@@ -35,6 +35,11 @@ public class AnimationUnit implements Observer<SortingEvent> {
     // copy of focus array. it will be sorted.
     private ArrayList<Integer> copyArray;
 
+    // store reference to sorting thread thats being run.
+    // so that you can interrupt it when you want to.
+    // assign within "beginSort" thread.
+    private Thread runningSortingAlgorithmThread;
+
     // sorting algorithm subject:
     private Sorter<Integer> sortingAlgorithm; // the sorting algorithm that is being used to sort the array.
 
@@ -69,6 +74,9 @@ public class AnimationUnit implements Observer<SortingEvent> {
         // set the sorting algorithm.
         this.sortingAlgorithm = sortingAlgorithm;
 
+        // set the sorting thread to null.
+        this.runningSortingAlgorithmThread = null;
+
         // add self as an observer to the sorting algorithm.
         this.sortingAlgorithm.addObserver(this);
 
@@ -78,17 +86,61 @@ public class AnimationUnit implements Observer<SortingEvent> {
 
     // commands the sorter to begin sorting the copyArray.
     public void beginSort(){
-        this.sortingAlgorithm.sortList(copyArray);
+
+        // if null or terminated. assign new thread.
+        if(runningSortingAlgorithmThread == null || (runningSortingAlgorithmThread.isAlive()== false)){
+            // store method call as an object. Using lambda
+            this.runningSortingAlgorithmThread = new Thread(()-> 
+            {
+                try {
+                    sortingAlgorithm.sortList(copyArray);
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                    // set variable to null.
+                    this.runningSortingAlgorithmThread = null;
+                }
+                catch(Exception e){
+                    System.out.println(e.getMessage());
+                    System.out.println("Other interrupt type?");
+                }
+                finally{
+                    System.out.println("ANIMATIONUNIT SORTING INTERRUPTED:" + this);
+                }
+            });
+        }
+
+        // do nothing if thread is running or null.
+        if(runningSortingAlgorithmThread.isAlive()){
+            System.out.println("beginSort request rejected.");
+            return;
+        }
+        else{
+            // start running it is not alive.
+            runningSortingAlgorithmThread.start();
+        }
     }
 
     // resets the copy array, by creating a new shallow copy of the current focus array.
     // intended to allow an animation to be reset from the beginning to be sorted again.
-    public void reset(){
+    // returns true if interrupted, false if no thread is running.
+    public boolean reset(){
+
+        if(runningSortingAlgorithmThread == null){
+            return false;
+        }
+        
+        // first interrupt the thread.
+        System.out.println("Interrupt sent to thread");
+        runningSortingAlgorithmThread.interrupt();
+
         this.copyArray = new ArrayList<Integer>(this.focusArray);
         // must update bar graph gui with new copyArray.
         this.barGraph.setFocusArray(this.copyArray);
+
         // redraw graph.
         updateGraph();
+
+        return true;
     }
 
 
