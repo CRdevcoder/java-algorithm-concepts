@@ -34,8 +34,8 @@
     - User can Export data into an excel or other table sheet file.
 
     ### App Dev To Do:
-    - 1.) Implement Sorting Algorithm Classes
-    - 2.) Implement Timer that records total sort time of each algorithm
-    - 3.) GUI Implementation
-    - 4.) Exception Handling
+    - [ ] 1.) Implement Sorting Algorithm Classes
+    - [ ] 2.) Implement Timer that records total sort time of each algorithm (Implemented)
+    - [ ] 3.) GUI Implementation
+    - [ ] 4.) Exception Handling
 
