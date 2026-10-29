@@ -13,13 +13,6 @@ public interface Sorter <T extends Comparable<T>> extends Subject<SortingEvent> 
     // Accepts DataTypes that implement Comparable Interface.
     public ArrayList<T> sortList(ArrayList<T> list) throws InterruptedException;
 
-    //public enum SortingEvent {
-    //    REDRAW_ARRAY_PLAIN, // redraw the array and keep all bars the same color.
-    ///    ELEMENT_SELECTED, // highlight the selected element in the array.
-    //    ELEMENT_MOVED,
-    //    ELEMENT_SWAPPED
-    //}
-
     // Idea: get selected index method. Returns index that is modified/swapped. This will be used to highlight the element in the GUI.
 
 }
