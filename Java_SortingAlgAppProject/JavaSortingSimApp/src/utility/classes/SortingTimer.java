@@ -16,16 +16,16 @@ import sortingalgorithms.classes.Sorter;
 public class SortingTimer<E extends Comparable<E>> {
 
     // construct it with algorithm object.
-    Sorter algorithm;
+    Sorter<E> algorithm;
 
     // number of tests it does per size.
-    public SortingTimer(Sorter algorithm)
+    public SortingTimer(Sorter<E> algorithm)
     {
         this.algorithm = algorithm;
     }
 
     // setter
-    public void setAlgorithm(Sorter algorithm)
+    public void setAlgorithm(Sorter<E> algorithm)
     {
         this.algorithm = algorithm;
     }
@@ -37,7 +37,12 @@ public class SortingTimer<E extends Comparable<E>> {
         long startTime = System.nanoTime();
 
         // sort list.
-        algorithm.sortList(list);
+        try {
+            algorithm.sortList(list);
+        } catch (Exception e) {
+            // return negative 1 time on exception or interupt.
+            return -1;
+        }
 
         // stop timer after sorting finished.
         long endTime = System.nanoTime();
