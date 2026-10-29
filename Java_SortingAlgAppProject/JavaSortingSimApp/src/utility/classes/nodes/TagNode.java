@@ -1,4 +1,4 @@
-package utility.classes;
+package utility.classes.nodes;
 
 public class TagNode<V> extends PairNode<Integer, V> implements Comparable<Integer>{
 

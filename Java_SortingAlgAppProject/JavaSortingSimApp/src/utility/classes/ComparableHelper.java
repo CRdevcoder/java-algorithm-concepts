@@ -3,6 +3,7 @@ package utility.classes;
 import java.util.ArrayList;
 
 import sortingalgorithms.classes.MergeSort;
+import utility.classes.nodes.TagNode;
 
 // functions for organizing comparable classes, or preparing them for organization.
 public class ComparableHelper {

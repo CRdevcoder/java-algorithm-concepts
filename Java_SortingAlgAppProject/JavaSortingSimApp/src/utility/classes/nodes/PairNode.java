@@ -1,4 +1,4 @@
-package utility.classes;
+package utility.classes.nodes;
 
 // stores two objects, one "key" and the "value"
 public class PairNode<K,V> {
