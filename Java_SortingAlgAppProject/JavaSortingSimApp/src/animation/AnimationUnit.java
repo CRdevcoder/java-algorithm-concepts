@@ -55,11 +55,7 @@ public class AnimationUnit implements Observer<SortingEvent> {
     // constructs a sorter using a factory.
     public AnimationUnit(ArrayList<Integer> focusArray, Algorithm algorithmType, int duration )
     {   
-        SorterFactory<Integer> fac = new SorterFactory<Integer>();
-        Sorter<Integer> alg = fac.createSorter(algorithmType);
-
-        // pass to other constructor.
-        this(focusArray, alg, duration);
+        this(focusArray, new SorterFactory<Integer>().createSorter(algorithmType), duration);
     }
 
     public AnimationUnit(ArrayList<Integer> focusArray, Sorter<Integer> sortingAlgorithm, int pauseDuration) {
