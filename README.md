@@ -1,7 +1,7 @@
 # Sorting Algorithm Animator App:
 Status: Prototype
 
-A library that displays an algorithm being sorted in real time.
+A library of classes and interfaces used to display an algorithm being sorted in real time.
 
 Applied concepts:
 Observer pattern
@@ -24,7 +24,6 @@ Observer pattern
 - Visual display shows the user how their array is being sorted in real time.
 - Generates time completion data for user to examine algorithm's speed.
 
-
     ## Planned Features For Sorting Algorithm Simulation App:
     ### Basic use case scenario: For none comp sci major users.
     INPUTS:
@@ -39,18 +38,13 @@ Observer pattern
     - Every recorded sorting time is stored on list.
     - The fastest sort time recorded will be labled.
 
-    ### Advanced Use Case: For software developers
+    ### Planned Advanced Use Case: For software developers
     - INPUTS:
     - User selects, "Time Complexity Testing" Mode.
     - User selects algorithm
     - User creates "trails rounds" to  test the algorithm
+      
     - OUTPUTS:
     - Data is sorted and the algorithm is timed.
     - The times measured for each rounds are stored in Table for user to see.
     - User can Export data into an excel or other table sheet file.
-    ### App Dev To Do:
-    - [ ] 1.) Implement Sorting Algorithm Classes
-    - [ ] 2.) Implement Timer that records total sort time of each algorithm (Implemented)
-    - [ ] 3.) GUI Implementation
-    - [ ] 4.) Exception Handling
-
