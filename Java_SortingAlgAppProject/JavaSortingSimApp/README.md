@@ -5,11 +5,11 @@ Applied concepts:
 Observer pattern
 
 ### App Dev To Do:
-- [-] 1.) Implement Sorting Algorithm Classes
+- [x] 1.) Implement Sorting Algorithm Classes
   - Merge sort and Bubble sort
-- [-] 2.) Implement Timer that records total sort time of each algorithm
+- [x] 2.) Implement Timer that records total sort time of each algorithm
 - [ ] 3.) GUI Implementation
-    - [-] Animation visuals implementation.
+    - [x] Animation visuals implementation.
 - [ ] 4.) Exception Handling
 
 # Project Purpose and Goals:
