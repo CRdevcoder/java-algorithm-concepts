@@ -1,6 +1,8 @@
 # Sorting Algorithm Animator App:
 Status: Prototype
+
 A library that displays an algorithm being sorted in real time.
+
 Applied concepts:
 Observer pattern
 
