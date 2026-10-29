@@ -21,6 +21,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Tests features of the AnimationUnit class.
+// Tests it's animation "stop and reset" interrupt functionality.
+
 public class AnimUnitTest implements ActionListener{
 
     public JButton resetButton;
