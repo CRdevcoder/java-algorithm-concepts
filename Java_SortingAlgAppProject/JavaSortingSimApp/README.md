@@ -1,5 +1,18 @@
-# Project Purpose and Goals:
+# Sorting Algorithm Animator App:
+Status: Prototype
+A library that displays an algorithm being sorted in real time.
+Applied concepts:
+Observer pattern
 
+### App Dev To Do:
+- [-] 1.) Implement Sorting Algorithm Classes
+  - Merge sort and Bubble sort
+- [-] 2.) Implement Timer that records total sort time of each algorithm
+- [ ] 3.) GUI Implementation
+    - [-] Animation visuals implementation.
+- [ ] 4.) Exception Handling
+
+# Project Purpose and Goals:
 - implement sorting algorithms.
 - apply them to project ideas.
 
@@ -8,6 +21,7 @@
 - Has a selected algorithm sort it.
 - Visual display shows the user how their array is being sorted in real time.
 - Generates time completion data for user to examine algorithm's speed.
+
 
     ## Planned Features For Sorting Algorithm Simulation App:
     ### Basic use case scenario: For none comp sci major users.
@@ -32,10 +46,4 @@
     - Data is sorted and the algorithm is timed.
     - The times measured for each rounds are stored in Table for user to see.
     - User can Export data into an excel or other table sheet file.
-
-    ### App Dev To Do:
-    - [ ] 1.) Implement Sorting Algorithm Classes
-    - [ ] 2.) Implement Timer that records total sort time of each algorithm (Implemented)
-    - [ ] 3.) GUI Implementation
-    - [ ] 4.) Exception Handling
 
